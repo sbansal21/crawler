@@ -10,8 +10,7 @@ import parser.*;
 import zookeeperModule.*;
 
 /**
- * Tests the ZkGenerator. Note: DirectoryParser may pick up files not generated
- * from ZooKeeper, resulting in an assertion failure.
+ * Tests the ZkGenerator.
  * 
  * @author ActianceEngInterns
  * @version 1.1
