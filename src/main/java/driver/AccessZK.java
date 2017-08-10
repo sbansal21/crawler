@@ -32,7 +32,7 @@ public class AccessZK {
 	 * @param args
 	 *            command-line arguments
 	 */
-	public static void run(String[] args) {
+	public static void main(String[] args) {
 
 		// if no args passed, automatically sets args[0] to "help"
 		if (args.length == 0) {
