@@ -2,6 +2,8 @@ package driver;
 
 import java.util.*;
 
+import org.apache.log4j.*;
+
 import zookeeperModule.*;
 
 /**
@@ -33,6 +35,14 @@ public class AccessZK {
 	 *            command-line arguments
 	 */
 	public static void main(String[] args) {
+
+		// disables logging, works in parallel with log4j.properties
+		@SuppressWarnings("unchecked")
+		List<Logger> loggers = Collections.<Logger>list(LogManager.getCurrentLoggers());
+		loggers.add(LogManager.getRootLogger());
+		for (Logger logger : loggers) {
+			logger.setLevel(Level.OFF);
+		}
 
 		// if no args passed, automatically sets args[0] to "help"
 		if (args.length == 0) {
