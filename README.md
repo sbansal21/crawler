@@ -11,6 +11,7 @@ Crawler retrieves and generates various server configuration files (e.g. .proper
 Crawler was developed as a collection of both regular scripts and wrappers for Java applications and heavily utilizes the ZooKeeper API.
 
 ### Generating ZooKeeper Files
+__Generating ZooKeeper files requires having JRE 1.8 installed.__
 Crawler works with the ZooKeeper API to generate full .properties files for all fabrics within a given dev environment. It generates a directory for the given dev environment within the root directory, and then, given a path within ZooKeeper to follow, it creates nested directories for each fabric within that ZooKeeper path. Within those fabric directories, it creates another directory named `common`, under which the .properties files can be found for each fabric. Furthermore, certain branches can be excepted from the general `server.properties` file for readability--these excepted branches are then given their own file named `server.<branch>.properties`. Detailed usage statements can be found in the application help pages, but as an example, this command creates a directory `dev` within `C:/Users/user/root` and populates it with the fabrics found within `/alcatrazproperties/2.5` of the host IP `127.0.0.1`:
 
 ```
@@ -97,8 +98,8 @@ Since most of these scripts are standalone, they can be added as needed.
 	
 Further suggestions welcome. For information on contacting developers, please see ['Developers' section](#developers).
 
-## Accessibility
-The code can be found online on [the GitHub page for crawler](https://github.com/sbansal21/crawler).
+## Code and Build
+The code can be found online on [the GitHub page for crawler](https://github.com/sbansal21/crawler). The scripts can be found under the ['scripts' directory](https://github.com/sumeet-bansal/crawler/tree/master/scripts) of the repo and the Java code can be found under the ['src' directory](https://github.com/sumeet-bansal/crawler/tree/master/src). However, the entire repo is set up as a Maven project that can be easily compiled and built.
 
 ## Developers
 + Sumeet Bansal (sbansal@actiance.com)
