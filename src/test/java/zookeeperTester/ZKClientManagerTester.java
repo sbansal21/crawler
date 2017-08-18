@@ -34,8 +34,7 @@ public class ZKClientManagerTester {
 	 * Tests zookeeperModule.ZKClientManager#getZNodeStats(java.lang.String).
 	 */
 	@Test
-	public void testGetZNodeStats() throws KeeperException,
-			InterruptedException {
+	public void testGetZNodeStats() {
 		zkmanager.create(path, data);
 		Stat stat = zkmanager.getZNodeStats(path);
 		assertNotNull(stat);
@@ -59,7 +58,7 @@ public class ZKClientManagerTester {
 	 * Tests zookeeperModule.ZKClientManager#update(java.lang.String, byte[]).
 	 */
 	@Test
-	public void testUpdate() throws KeeperException, InterruptedException {
+	public void testUpdate() {
 		zkmanager.create(path, data);
 		String data = "updated data";
 		byte[] dataBytes = data.getBytes();
