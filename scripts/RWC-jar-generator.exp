@@ -1,19 +1,21 @@
 #!/usr/bin/expect -f
 
 set timeout 1
-set pass
+set pass [lindex $argv 0]
 
-set root target/RWC-Dev
+set root root/RWC-Dev
 spawn sh -c "mkdir -p $root"
 
 set baseIP 10.0.113.
 for {set VMIP 33} {$VMIP <= 43} {incr VMIP} {
 	spawn sh -c "ssh sysops@$baseIP$VMIP bash < jar-generator.sh"
-	expect "assword:"
-	send "$pass\r"
+	expect {
+		"*yes/no*" { send "yes\r" ; exp_continue }
+		"*assword:" { send "$pass\r" }
+	}
 	expect eof
 	spawn sh -c "sftp sysops@$baseIP$VMIP"
-	expect "assword:"
+	expect "*assword:"
 	send "$pass\r"
 	expect "$"
 	send "get *.jars\r"
