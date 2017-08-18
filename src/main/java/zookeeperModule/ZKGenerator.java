@@ -61,7 +61,7 @@ public class ZKGenerator {
 			fabric = fabrics.get(i);
 			recursive(zkpath + "/" + fabric);
 			write(fabric, map);
-			System.out.println("generated .properties file(s) for " + fabric);
+			System.out.println("generated .properties file(s) for " + env + fabric);
 			
 		}
 	}	
