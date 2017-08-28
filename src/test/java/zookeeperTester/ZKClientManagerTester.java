@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.*;
 
-import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.Stat;
 import org.junit.*;
 
