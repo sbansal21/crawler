@@ -26,14 +26,8 @@ Thumbs.db
 .classpath
 .project
 .settings/
-*.yaml
-*.yml
-*.config
-*.conf
-*.cfg
+
+# crawler generated files
 *.properties
-*.prop
-*.xml
-*.info
-hosts
+*.jars
 root/
