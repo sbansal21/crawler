@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>sbansal</groupId>
-	<artifactId>crawler</artifactId>
-	<version>1.0</version>
+	<artifactId>zk-crawler</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -12,44 +12,125 @@
 	</properties>
 
 	<dependencies>
+
+		<!-- standard dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-	    <dependency>
-	        <groupId>org.apache.commons</groupId>
-	        <artifactId>commons-lang3</artifactId>
-	        <version>3.4</version>
-	    </dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
 		<dependency>
-		    <groupId>org.apache.zookeeper</groupId>
-		    <artifactId>zookeeper</artifactId>
-		    <version>3.4.10</version>
-		</dependency>		
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+
+		<!-- ZooKeeper dependencies -->
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.10</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
 		<plugins>
+
+			<!-- cleans target/ (default) and documentation/ -->
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>documentation</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
+			<!-- compiles with JRE 1.8 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>3.7.0</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
+			<!-- disables default jar by binding it to a non-existent phase -->
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<executions>
+					<execution>
+						<id>default-jar</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- runs all JUnit tests -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.20.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-junit47</artifactId>
+						<version>2.20.1</version>
+					</dependency>
+				</dependencies>
 				<configuration>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
+					<includes>
+						<include>**/*Test*.java</include>
+					</includes>
 				</configuration>
 			</plugin>
+
+			<!-- creates jar with packaged dependencies -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>driver.Access</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- generates javadocs in documentation/ -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<configuration>
+					<reportOutputDirectory>
+						${basedir}/documentation
+					</reportOutputDirectory>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
